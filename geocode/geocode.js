@@ -19,7 +19,8 @@ const geocodeAddress = (add, callback) => {
 
         } else if (body.status === 'OK') {
 
-           callback(null, body.results[0].geometry.location);
+            console.log(`Fetching weather for ${body.results[0].formatted_address}...`)
+            callback(null, body.results[0].geometry.location);
 
         } 
 

@@ -1,9 +1,7 @@
 const request = require('request');
 
 const printWeather = (forecast) => {
-        console.log('\n');
-        console.log(`The current temperature is: ${forecast.temp}F`);
-        console.log(`Weekly forecast: ${forecast.weather}`)
+        console.log(JSON.stringify(forecast, null, 2));
 }
 
 const setWeather = (coords, callback) => {
@@ -15,11 +13,16 @@ const setWeather = (coords, callback) => {
         json: true 
     }, (error, response, body) => {
 
+        // Only use callback if no errors
         if (!error && response.statusCode === 200) {
-            callback({
-                temp: body.currently.temperature,
-                weather: body.daily.summary 
+            callback({ // Data we want to transmit
+                "temperature": body.currently.temperature,
+                "humidity": body.currently.humidity,
+                "chance of rain": body.currently.precipProbability,
+                "forecast": body.daily.summary 
             });
+        } else {
+            console.log('Error connecting to api.')
         }
 
     });

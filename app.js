@@ -9,18 +9,19 @@ const argv = yargs
             describe: 'Address used to fetch weather conditions.',
             demand: true,
             alias: 'a',
-            string: true // tells yargs to always parse the option value as a string
+            string: true 
         }
     })
-    .help() // init a help command for the app
-    .alias('help', 'h') // sets alias for the help command
-    .argv; // return formated argument hash to argv
+    .help() 
+    .alias('help', 'h') 
+    .argv; // set formated argument hash to argv
 
-let coords, forecast;
 
-geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+geocode.geocodeAddress(argv.address, (errorMessage, coordinates) => {
     if (errorMessage) console.log(errorMessage);
-    if (results) {
-        weather.setWeather(results, weather.printWeather);
+    if (coordinates) {
+        // Connect to weather api with coordinates
+        // Callback prints weather to cli
+        weather.setWeather(coordinates, weather.printWeather);
     }
 });
