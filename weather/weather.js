@@ -12,11 +12,9 @@ const setWeather = (coords, callback) => {
         url: `https://api.darksky.net/forecast/${secretKey}/${coords.lat},${coords.lng}`,
         json: true 
     }, (error, response, body) => {
-
-        // Only use callback if no errors
         if (!error && response.statusCode === 200) {
             callback({ // Data we want to transmit
-                "temperature": body.currently.temperature,
+                "temperature": body.currently.temperature +'F',
                 "humidity": body.currently.humidity,
                 "chance of rain": body.currently.precipProbability,
                 "forecast": body.daily.summary 
